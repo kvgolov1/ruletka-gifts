@@ -11,7 +11,16 @@ import java.util.*;
 
 public class MainActivity extends Activity {
     WheelView wheel; Button spin; TextView result; ImageView giftImage;
-    final Gift[] gifts = { new Gift("Сюрприз", "🎁", 0xFFFF6B6B), new Gift("Кофе", "☕", 0xFFFFC857), new Gift("Скидка 10%", "🏷", 0xFF55C1FF), new Gift("Шоппер", "👜", 0xFF9B7EDE), new Gift("Молодец!", "⭐", 0xFF61D095), new Gift("Брелок", "🔑", 0xFFFF8FA3) };
+    final Gift[] gifts = {
+        new Gift("Большой подарок", "🎁", 0xFFFF5C73),
+        new Gift("Сертификат", "🎫", 0xFFFFC857),
+        new Gift("Кофе", "☕", 0xFF55C1FF),
+        new Gift("Скидка 20%", "🏷", 0xFFFF8FA3),
+        new Gift("Шоппер", "👜", 0xFF9B7EDE),
+        new Gift("Брелок", "🔑", 0xFF61D095),
+        new Gift("Конфеты", "🍬", 0xFFFF9F43),
+        new Gift("Спасибо за участие!", "⭐", 0xFFB56CFF)
+    };
     @Override public void onCreate(Bundle b) { super.onCreate(b); build(); }
     void build() {
         LinearLayout root = new LinearLayout(this); root.setOrientation(LinearLayout.VERTICAL); root.setPadding(24,18,24,18); root.setBackgroundColor(0xFF17152A);
