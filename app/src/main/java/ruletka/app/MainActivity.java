@@ -2,6 +2,7 @@ package ruletka.app;
 
 import android.animation.*;
 import android.app.*;
+import android.content.Intent;
 import android.os.*;
 import android.graphics.*;
 import android.graphics.drawable.GradientDrawable;
@@ -47,8 +48,15 @@ public class MainActivity extends Activity {
         animation=ValueAnimator.ofFloat(angle,angle+5400+(desired-normalized+360)%360);
         animation.setDuration(15000); animation.setInterpolator(new DecelerateInterpolator(1.5f));
         animation.addUpdateListener(a->{angle=(float)a.getAnimatedValue();wheel.invalidate();});
-        animation.addListener(new AnimatorListenerAdapter(){public void onAnimationEnd(Animator a){angle=desired;giftImage.setText(gifts[winner].icon);result.setText(gifts[winner].name);spin.setEnabled(true);spin.setAlpha(1);}}); animation.start();
+        animation.addListener(new AnimatorListenerAdapter(){public void onAnimationEnd(Animator a){
+            angle=desired; wheel.invalidate();
+            giftImage.setText(gifts[winner].icon);result.setText(gifts[winner].name);spin.setEnabled(true);spin.setAlpha(1);
+            startActivity(new Intent(MainActivity.this, WinnerActivity.class)
+                .putExtra("gift_name",gifts[winner].name).putExtra("gift_icon",gifts[winner].icon));
+        }}); animation.start();
     }
+    @Override protected void onPause(){if(animation!=null&&animation.isRunning())animation.pause();super.onPause();}
+    @Override protected void onResume(){super.onResume();if(animation!=null&&animation.isPaused())animation.resume();}
     @Override protected void onDestroy(){if(animation!=null){animation.removeAllListeners();animation.cancel();}super.onDestroy();}
     int dp(float value){return Math.round(value*getResources().getDisplayMetrics().density);}
     GradientDrawable panel(int[] colors,int radius,int stroke){GradientDrawable d=new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,colors);d.setCornerRadius(dp(radius));d.setStroke(dp(3),stroke);return d;}
