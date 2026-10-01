@@ -44,8 +44,8 @@ public class MainActivity extends Activity {
         final float desired=(360-(winner+.5f)*45)%360;
         float normalized=((angle%360)+360)%360;
         spin.setEnabled(false); spin.setAlpha(.7f); result.setText("Рулетка вращается…");
-        animation=ValueAnimator.ofFloat(angle,angle+1800+(desired-normalized+360)%360);
-        animation.setDuration(4200); animation.setInterpolator(new DecelerateInterpolator(2.5f));
+        animation=ValueAnimator.ofFloat(angle,angle+5400+(desired-normalized+360)%360);
+        animation.setDuration(15000); animation.setInterpolator(new DecelerateInterpolator(1.5f));
         animation.addUpdateListener(a->{angle=(float)a.getAnimatedValue();wheel.invalidate();});
         animation.addListener(new AnimatorListenerAdapter(){public void onAnimationEnd(Animator a){angle=desired;giftImage.setText(gifts[winner].icon);result.setText(gifts[winner].name);spin.setEnabled(true);spin.setAlpha(1);}}); animation.start();
     }
